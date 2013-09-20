@@ -30,7 +30,7 @@
 
 <div class="container" ng-controller="filtering">
 
-    <div class="row row-offcanvas row-offcanvas-right">
+    <div class="row">
         <div class="col-xs-12 col-sm-3" id="sidebar" role="navigation">
             <div class="list-group">
 
@@ -120,7 +120,7 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-12 teaser-container">
+                <div class="col-lg-12 teaser-container" ng-cloak>
                     <div class="teaser" ng-repeat="data in (movies = (appData | filter:searchMovie | filter:category) ) | startFrom: startPage | limitTo: pagelimit track by $index">
                         <div class="col-lg-2 col-sm-2 col-xs-12 text-center">
                             <img bn-lazy-src="{{ data['im:image'][2].label }}" class="img-thumbnail">
