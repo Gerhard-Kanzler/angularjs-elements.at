@@ -150,7 +150,7 @@ demoApp.controller('filtering', [ '$rootScope', '$scope', '$log', '$http', funct
                         'im:name': {label: _data.results[_count].trackName},
                         summary : { label : _data.results[_count].longDescription },
                         'im:image' : [ {},{},{ label: _data.results[_count].artworkUrl100 } ],
-                        'im:rentalprice' : { attributes : {amount: _data.results[_count].trackPrice } },
+                        'im:rentalPrice' : { attributes : {amount: _data.results[_count].trackPrice } },
                         'link': [{ attributes : {href: _data.results[_count].trackViewUrl} }]
                     });
                 });
