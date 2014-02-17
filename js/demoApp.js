@@ -139,13 +139,35 @@ demoApp.controller('filtering', [ '$rootScope', '$scope', '$log', '$http', funct
     }
 
     $scope.searchOverAll = function(){
-        $http({ method: 'GET', url: 'https://itunes.apple.com/search?media=movie&term=' + $scope.globalkeyword })
+        $scope.keyword = '';
+        $http({ method: 'JSONP', url: 'https://itunes.apple.com/search?media=movie&country=at&term=' + $scope.globalkeyword + '&callback=JSON_CALLBACK' })
             .success(function( _data, _status ){
-               console.log(_data);
+                _res = [];
+                $.each( _data.results, function( _count ){
+                    _res.push({
+                        category : { 'im:id' : '', 'label' : '' },
+                        id : { attributes: { 'im:id' : _data.results[_count].trackId } },
+                        'im:name': {label: _data.results[_count].trackName},
+                        summary : { label : _data.results[_count].longDescription },
+                        'im:image' : [ {},{},{ label: _data.results[_count].artworkUrl100 } ],
+                        'im:rentalprice' : _data.results[_count].trackPrice,
+                        'link': [{ attributes : {href: _data.results[_count].trackViewUrl} }]
+                    });
+                });
+
+                $scope.appData = _res;
             })
             .error(function( _data, _status ){
                 $log.debug( _data, _status );
             });
+    };
+
+
+    $scope.resetSearch = function(){
+        if( $scope.globalkeyword == '' ){
+            var dataInStorage = JSON.parse( storage.getItem('movies') );
+            $scope.appData = dataInStorage.feed.entry;
+        }
     };
 
 
@@ -245,5 +267,19 @@ demoApp.controller('filtering', [ '$rootScope', '$scope', '$log', '$http', funct
             idx = +idx; //parse to int
             return input.slice(idx);
         }
+    };
+})
+
+.directive('ngEnter', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if(event.which === 13) {
+                scope.$apply(function (){
+                    scope.$eval(attrs.ngEnter);
+                });
+
+                event.preventDefault();
+            }
+        });
     };
 });

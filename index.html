@@ -38,21 +38,21 @@
         <div class="col-xs-12 col-sm-3" id="sidebar" role="navigation">
             <div class="list-group">
 
-                <h3>Top400 Keyword</h3>
-
-                <div class="form-group">
-                    <input type="text" class="form-control" id="stichwortinput" placeholder="" ng-model="keyword">
-                </div>
-
-                <h3>Overall Movie Keyword</h3>
+                <h3>Search Movies</h3>
 
                 <div class="input-group">
-                    <input type="text" class="form-control" id="stichwortinput" placeholder="" ng-model="globalkeyword">
+                    <input type="text" class="form-control" ng-enter="searchOverAll()" ng-blur="resetSearch()"  id="stichwortinput" placeholder="" ng-model="globalkeyword">
                     <span class="input-group-btn">
                         <button class="btn btn-default" ng-click="searchOverAll()">Suchen</button>
                     </span>
                 </div>
+<!--
+                <h3>Filter List</h3>
 
+                <div class="form-group">
+                    <input type="text" class="form-control" id="stichwortinput" placeholder="" ng-model="search.keyword">
+                </div>
+-->
 
                 <h3>Kategorie</h3>
 
