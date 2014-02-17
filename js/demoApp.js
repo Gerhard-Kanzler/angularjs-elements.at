@@ -8,7 +8,7 @@ var storage = (function() {
       storage,
       result;
   try {
-    (storage = window.localStorage).setItem(uid, uid);
+    (storage = window.sessionStorage).setItem(uid, uid);
     result = storage.getItem(uid) == uid;
     storage.removeItem(uid);
     return result && storage;
@@ -138,8 +138,18 @@ demoApp.controller('filtering', [ '$rootScope', '$scope', '$log', '$http', funct
             });
     }
 
-    $scope.searchMovie = function ( input ){
+    $scope.searchOverAll = function(){
+        $http({ method: 'GET', url: 'https://itunes.apple.com/search?media=movie&term=' + $scope.globalkeyword })
+            .success(function( _data, _status ){
+               console.log(_data);
+            })
+            .error(function( _data, _status ){
+                $log.debug( _data, _status );
+            });
+    };
 
+
+    $scope.searchMovie = function ( input ){
         if( $scope.search ){
             var hasKeyword = false;
             if( $scope.keyword ){
@@ -154,7 +164,6 @@ demoApp.controller('filtering', [ '$rootScope', '$scope', '$log', '$http', funct
             }else{
                 delete $scope.keyword;
             }
-
             if( $scope.keyword ){
                 if( hasKeyword ){
                     return true;
@@ -164,7 +173,6 @@ demoApp.controller('filtering', [ '$rootScope', '$scope', '$log', '$http', funct
             }else{
                 return true;
             }
-
         }else{
             return true;
         }
