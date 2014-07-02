@@ -45,8 +45,8 @@ demoApp.controller('filtering', [ '$rootScope', '$scope', '$log', '$http', funct
     $scope.trailerId = window.location.href;
 
     var jsonLinks = {
-        movie: 'https://itunes.apple.com/at/rss/topmovies/limit=400/json',
-        freeApps: 'https://itunes.apple.com/at/rss/toppaidapplications/limit=400/json'
+        movie: 'https://itunes.apple.com/at/rss/topmovies/limit=200/json',
+        freeApps: 'https://itunes.apple.com/at/rss/toppaidapplications/limit=200/json'
     };
 
     if( storage ){
